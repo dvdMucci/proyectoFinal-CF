@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: avatares
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: avatares-deployment
+  namespace: avatares
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: avatares
+  template:
+    metadata:
+      labels:
+        app: avatares
+    spec:
+      containers:
+      - name: web
+        image: dvdmucci/avatares-cf-web:latest
+        ports:
+        - containerPort: 5173
+        env:
+        - name: VITE_HOST
+          value: "0.0.0.0"
+        - name: VITE_PORT
+          value: "5173"
+      - name: api
+        image: dvdmucci/avatares-cf-api:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: FLASK_APP
+          value: "app.py"
+        - name: FLASK_ENV
+          value: "development"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: avatares-service
+  namespace: avatares
+spec:
+  type: NodePort
+  selector:
+    app: avatares
+  ports:
+  - protocol: TCP
+    name: api
+    port: 5000
+    nodePort: 30500
+  - protocol: TCP
+    name: web
+    port: 5173
+    nodePort: 30173

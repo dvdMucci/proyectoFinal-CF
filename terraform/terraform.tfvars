@@ -1,0 +1,11 @@
+#Este archivo no tiene que ser publico. Se deberá agregar a .gitignore
+tenancy_ocid     = "tu_tenancy_ocid"
+user_ocid        = "tu_user_ocid"
+fingerprint      = "tu_fingerprint"
+ssh_private_key = "ruta/a/tu/clave_privada.pem"
+region           = "tu_region"
+compartment_ocid = "tu_compartment_ocid"
+oci_core_instance_source_id = "tu_imagen"
+availability_domain = "tu_availability_domain" 
+fault_domain = "tu_fault_domai" 
+ssh_public_key = "tu_clave_publica"

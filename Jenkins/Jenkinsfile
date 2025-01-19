@@ -1,0 +1,18 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Verificar Docker y folder de trabajo') {
+      steps {
+        sh 'docker info'
+        sh 'pwd'
+      }    
+    }
+    stage('Deploy'){
+      steps {
+        sh 'kubectl apply -f kubernetes/deploy-avatares.yaml'
+        sh 'kubectl -n avatares rollout status deployment/avatares-deployment'
+      }      
+    }
+  }
+}
