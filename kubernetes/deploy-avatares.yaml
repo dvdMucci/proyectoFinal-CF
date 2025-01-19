@@ -9,7 +9,7 @@ metadata:
   name: avatares-deployment
   namespace: avatares
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: avatares
